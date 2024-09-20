@@ -1,5 +1,7 @@
 LLM-powered HR Chatbot
+
 This repository contains a full-stack application for an HR chatbot powered by a fine-tuned GPT-2 language model. The chatbot is designed to assist with HR-related queries and provide a seamless user experience through a modern, animated interface.
+
 Table of Contents
 
 Features
@@ -49,10 +51,6 @@ npm or yarn
 
 Installation
 
-Clone the repository:
-Copygit clone https://github.com/yourusername/llm-hr-chatbot.git
-cd llm-hr-chatbot
-
 Set up the backend:
 Copycd backend
 python -m venv venv
@@ -79,7 +77,9 @@ npm start  # or yarn start
 Open your browser and navigate to http://localhost:3000 to use the chatbot.
 
 Project Structure
+
 Copyllm-hr-chatbot/
+
 ├── backend/
 │   ├── app.py
 │   ├── requirements.txt
@@ -93,6 +93,7 @@ Copyllm-hr-chatbot/
 │   └── tailwind.config.js
 └── README.md
 Backend
+
 The backend is built with Flask and uses a fine-tuned GPT-2 model for generating responses. Key components:
 
 app.py: Contains the Flask application and API endpoint for chat functionality.
