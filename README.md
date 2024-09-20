@@ -5,16 +5,25 @@ This repository contains a full-stack application for an HR chatbot powered by a
 Table of Contents
 
 Features
+
 Tech Stack
+
 Prerequisites
+
 Installation
+
 Usage
+
 Project Structure
+
 Backend
+
 Frontend
+
 Customization
+
 Contributing
-License
+
 
 Features
 
