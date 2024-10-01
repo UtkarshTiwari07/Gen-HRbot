@@ -4,28 +4,28 @@ This repository contains a full-stack application for an HR chatbot powered by a
 
 Table of Contents
 
-Features
+-[Features](#Features)
 
-Tech Stack
+-[Tech Stack](#TechStack)
 
-Prerequisites
+-[Prerequisites](#Prerequisites)
 
-Installation
+-[Installation](#Installation)
 
-Usage
+-[Usage](#Usage)
 
-Project Structure
+-[Project Structure](#ProjectStructure)
 
-Backend
+-[Backend](#Backend)
 
-Frontend
+-[Frontend](#Frontend)
 
-Customization
+-[Customization](#Customization)
 
-Contributing
+-[Contributing](#Contributing)
 
 
-Features
+## Features
 
 Full-stack application with Flask backend and React frontend
 GPT-2 based language model fine-tuned for HR-related queries
@@ -33,9 +33,9 @@ Animated and responsive user interface using Framer Motion
 Real-time chat functionality
 Mobile-friendly design
 
-Tech Stack
+## TechStack
 
-Backend:
+ Backend:
 
 Python
 Flask
@@ -52,13 +52,13 @@ Tailwind CSS
 
 
 
-Prerequisites
+## Prerequisites
 
 Python 3.7+
 Node.js 14+
 npm or yarn
 
-Installation
+## Installation
 
 Set up the backend:
 Copycd backend
@@ -73,7 +73,7 @@ npm install  # or yarn install
 Download the fine-tuned model:
 Place your fine-tuned GPT-2 model in a directory named hr_gpt2_model1 in the backend folder.
 
-Usage
+## Usage
 
 Start the backend server:
 Copycd backend
@@ -85,7 +85,7 @@ npm start  # or yarn start
 
 Open your browser and navigate to http://localhost:3000 to use the chatbot.
 
-Project Structure
+## Project Structure
 
 Copyllm-hr-chatbot/
 
@@ -101,24 +101,24 @@ Copyllm-hr-chatbot/
 │   ├── package.json
 │   └── tailwind.config.js
 └── README.md
-Backend
+## Backend
 
 The backend is built with Flask and uses a fine-tuned GPT-2 model for generating responses. Key components:
 
 app.py: Contains the Flask application and API endpoint for chat functionality.
 HRChatbot class: Handles the interaction with the GPT-2 model.
 
-Frontend
+## Frontend
 The frontend is a React application with an animated interface. Key components:
 
 App.js: Main component containing the chat interface and logic.
 ChatMessage: Component for rendering individual chat messages.
 
-Customization
+## Customization
 
 To customize the chatbot's responses, you can fine-tune the GPT-2 model on a different dataset or adjust the generation parameters in the get_response method of the HRChatbot class.
 To modify the UI, edit the React components in App.js and update the Tailwind CSS classes.
 To add new features, such as user authentication or message history, extend both the backend API and frontend components accordingly.
 
-Contributing
+## Contributing
 Contributions are welcome! Please feel free to submit a Pull Request. 
