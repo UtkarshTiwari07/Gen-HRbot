@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HR Genrative Chatbot</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f1e4da;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-image: url("/static/image6.webp");
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        .chat-container {
+            width: 380px;
+            background-color: #fff;
+            border-radius: 20px;
+            box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .chat-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .chat-header img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+        }
+
+        .chat-header h1 {
+            font-size: 1.2rem;
+            color: #333;
+        }
+
+        .chat-messages {
+            flex-grow: 1;
+            margin: 20px 0;
+            overflow-y: auto;
+            padding-right: 10px;
+            position: relative;
+        }
+
+        .chat-message {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            border-radius: 15px;
+            margin-bottom: 10px;
+            max-width: 75%;
+        }
+
+        .user-message {
+            background-color: #f18d9e;
+            color: #fff;
+            margin-left: auto;
+            justify-content: flex-end;
+        }
+
+        .bot-message {
+            background-color: #d0e3ff;
+            color: #333;
+        }
+
+        .typing-indicator {
+            display: none;
+            margin: 5px 0;
+        }
+
+        .typing-indicator span {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            margin-right: 5px;
+            background-color: #bbb;
+            border-radius: 50%;
+            animation: typing 1s infinite;
+        }
+
+        .typing-indicator span:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .typing-indicator span:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        @keyframes typing {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+            100% { transform: translateY(0); }
+        }
+
+        .chat-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid #e0e0e0;
+            padding-top: 10px;
+        }
+
+        .chat-footer input {
+            flex-grow: 1;
+            border: 1px solid #ddd;
+            border-radius: 30px;
+            padding: 10px 15px;
+            margin-right: 10px;
+            font-size: 1rem;
+            background-color: #f7f7f7;
+            box-shadow: inset 1px 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .chat-footer button {
+            background-color: #ffabbb;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 45px;
+            height: 45px;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .chat-footer button img {
+            width: 20px;
+            height: 20px;
+        }
+
+        /* Custom rounded buttons for user profile, menu, etc. */
+        .rounded-button {
+            background-color: #fbd4b4;
+            border: none;
+            border-radius: 20px;
+            padding: 10px 20px;
+            cursor: pointer;
+            margin-bottom: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            color: #333;
+            font-weight: bold;
+        }
+
+        .rounded-button:hover {
+            background-color: #f9b499;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 500px) {
+            .chat-container {
+                width: 100%;
+                height: 100%;
+                border-radius: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="chat-container">
+        <!-- Header Section -->
+        <div class="chat-header">
+            <img src="/static/icons8-invideo-ai-50.png" alt="Chatbot Icon">
+            <h1>HR Chatbot</h1>
+        </div>
+
+        <!-- Messages Section -->
+        <div class="chat-messages" id="chat-messages">
+            <!-- Typing indicator -->
+            <div class="typing-indicator" id="typing-indicator">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+
+        <!-- Rounded Buttons for User Profile, Menu, Attachments -->
+        <button class="rounded-button">User Profile</button>
+        <button class="rounded-button">Menu</button>
+        <button class="rounded-button">Attachment</button>
+
+        <!-- Footer Section with Input -->
+        <div class="chat-footer">
+            <input type="text" id="user-input" placeholder="Type your message..." onkeypress="sendMessageOnEnter(event)">
+            <button onclick="sendMessage()">
+                <img src="static/icons8-invideo-ai-100.png" alt="sent"/>
+            </button>
+        </div>
+    </div>
+
+    <script>
+        function appendMessage(message, isUser) {
+            const chatMessages = document.getElementById('chat-messages');
+            const messageDiv = document.createElement('div');
+            messageDiv.classList.add('chat-message');
+            if (isUser) {
+                messageDiv.classList.add('user-message');
+            } else {
+                messageDiv.classList.add('bot-message');
+            }
+            messageDiv.textContent = message;
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function toggleTypingIndicator(show) {
+            const typingIndicator = document.getElementById('typing-indicator');
+            typingIndicator.style.display = show ? 'flex' : 'none';
+        }
+
+        function sendMessage() {
+            const userInput = document.getElementById('user-input');
+            const message = userInput.value.trim();
+            if (!message) return;
+
+            // Append the user's message
+            appendMessage(message, true);
+            userInput.value = '';
+
+            // Show typing indicator
+            toggleTypingIndicator(true);
+
+            // Simulate the bot's response delay
+            setTimeout(() => {
+                fetch('/chat', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ question: message })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    // Hide typing indicator
+                    toggleTypingIndicator(false);
+
+                    // Append bot's message
+                    appendMessage(data.response, false);
+                })
+                .catch(error => {
+                    toggleTypingIndicator(false);
+                    console.error('Error:', error);
+                });
+            }, 1000); // Simulated typing delay of 1 second
+        }
+
+        function sendMessageOnEnter(event) {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        }
+    </script>
+
+</body>
+</html>
